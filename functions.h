@@ -1,0 +1,26 @@
+#define TRUE 1
+#define FALSE 0
+#define PLAYER_NAME_SIZE 50
+#define LINE_SIZE 30
+#ifdef _WIN32
+#define clear "cls"
+#else
+#define clear "clear"
+#endif
+struct player
+{
+    int score;
+    unsigned char name[PLAYER_NAME_SIZE];
+    char weapon;
+};
+typedef struct player PLAYER;
+bool initPlayers(PLAYER *player1, PLAYER *player2);
+bool removeNewline(unsigned char *buffer, int size);
+void clear_stdin(void);
+char upper(char c);
+unsigned short int startMenu(void);
+void printLine(int size);
+unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int rows, int columns);
+bool checkforwin(char **board, int rows, int columns);
+void pauseTerm(void);
+void printBoard(char **board);
