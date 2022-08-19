@@ -4,6 +4,7 @@
 #define FALSE 0
 #define PLAYER_NAME_SIZE 50
 #define LINE_SIZE 30
+#define RECORD_FILENAME "records.bin"
 #ifdef _WIN32
 #define clear "cls"
 #else
@@ -26,4 +27,7 @@ unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int 
 bool checkforwin(char **board, int rows, int columns);
 void pauseTerm(void);
 void printBoard(char **board);
+bool fileExists(char *filename);
+void recordWrite(FILE **recordFile, PLAYER player1, PLAYER player2);
+void recordRead(FILE *recordFile, PLAYER *player1, PLAYER *player2);
 #endif
