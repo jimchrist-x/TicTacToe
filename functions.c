@@ -32,6 +32,8 @@ bool initPlayers(PLAYER *player1, PLAYER *player2)
         player1->weapon = '0';
         player2->weapon = 'X';
     }
+    player1->score=0;
+    player2->score=0;
     return TRUE;
 }
 
@@ -91,28 +93,33 @@ void printLine(int size)
 }
 unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int rows, int columns)
 {
-    bool running = TRUE;
-    int turn=1,previousTurn;
+    bool runningMain=TRUE, running;
+    int turn,previousTurn;
     int option, total_turns=0;
     int *used_options;
-    system(clear);
-    used_options=malloc(sizeof(int)*(rows*columns));
-    if (!used_options) {
-        printf("Error allocating memory!\n");
-        exit(EXIT_FAILURE);
-    }
-    board[0][0]='1';        
-    board[0][1]='2';    
-    board[0][2]='3';    
-    board[1][0]='4';
-    board[1][1]='5';
-    board[1][2]='6';
-    board[2][0]='7';
-    board[2][1]='8';
-    board[2][2]='9';
-    while (running)
-    {
-        printBoard(board);
+    char play_again;
+    while (runningMain) {
+        system(clear);
+        running = TRUE;
+        turn = 1;
+        total_turns=0;
+        used_options=malloc(sizeof(int)*(rows*columns));
+        if (!used_options) {
+            printf("Error allocating memory!\n");
+            exit(EXIT_FAILURE);
+        }
+        board[0][0]='1';        
+        board[0][1]='2';    
+        board[0][2]='3';    
+        board[1][0]='4';
+        board[1][1]='5';
+        board[1][2]='6';
+        board[2][0]='7';
+        board[2][1]='8';
+        board[2][2]='9';
+        while (running)
+        {
+            printBoard(board);
             if (turn==1) {
                 do {
                     if (player1->weapon=='X') {
@@ -155,64 +162,80 @@ unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int 
                 previousTurn=turn;
                 turn=1;
             }
-        used_options[total_turns]=option;
-        if (previousTurn==1) {
-            option==1 ? board[0][0]='X' : FALSE;
-            option==2 ? board[0][1]='X' : FALSE;
-            option==3 ? board[0][2]='X' : FALSE;
-            option==4 ? board[1][0]='X' : FALSE;
-            option==5 ? board[1][1]='X' : FALSE;
-            option==6 ? board[1][2]='X' : FALSE;
-            option==7 ? board[2][0]='X' : FALSE;
-            option==8 ? board[2][1]='X' : FALSE;
-            option==9 ? board[2][2]='X' : FALSE;
-            total_turns++;
-        }
-        else {
-            option==1 ? board[0][0]='0' : FALSE;
-            option==2 ? board[0][1]='0' : FALSE;
-            option==3 ? board[0][2]='0' : FALSE;
-            option==4 ? board[1][0]='0' : FALSE;
-            option==5 ? board[1][1]='0' : FALSE;
-            option==6 ? board[1][2]='0' : FALSE;
-            option==7 ? board[2][0]='0' : FALSE;
-            option==8 ? board[2][1]='0' : FALSE;
-            option==9 ? board[2][2]='0' : FALSE;
-            total_turns++;
-        }
-        if (checkforwin(board, rows, columns)) {
-            printBoard(board);
+            used_options[total_turns]=option;
             if (previousTurn==1) {
-                if (player1->weapon=='X') {
-                    printf("%s won!\n",player1->name);
-                    player1->score++;
-                }
-                else {
-                    printf("%s won!\n",player2->name);
-                    player2->score++;
-                }
+                option==1 ? board[0][0]='X' : FALSE;
+                option==2 ? board[0][1]='X' : FALSE;
+                option==3 ? board[0][2]='X' : FALSE;
+                option==4 ? board[1][0]='X' : FALSE;
+                option==5 ? board[1][1]='X' : FALSE;
+                option==6 ? board[1][2]='X' : FALSE;
+                option==7 ? board[2][0]='X' : FALSE;
+                option==8 ? board[2][1]='X' : FALSE;
+                option==9 ? board[2][2]='X' : FALSE;
+                total_turns++;
             }
             else {
-                if (player1->weapon=='0') {
-                    printf("%s won!\n",player1->name);
-                    player1->score++;
+                option==1 ? board[0][0]='0' : FALSE;
+                option==2 ? board[0][1]='0' : FALSE;
+                option==3 ? board[0][2]='0' : FALSE;
+                option==4 ? board[1][0]='0' : FALSE;
+                option==5 ? board[1][1]='0' : FALSE;
+                option==6 ? board[1][2]='0' : FALSE;
+                option==7 ? board[2][0]='0' : FALSE;
+                option==8 ? board[2][1]='0' : FALSE;
+                option==9 ? board[2][2]='0' : FALSE;
+                total_turns++;
+            }
+            if (checkforwin(board, rows, columns)) {
+                printBoard(board);
+                if (previousTurn==1) {
+                    if (player1->weapon=='X') {
+                        player1->score++;
+                        printf("%s won! Score is : %d | %d\n",player1->name,player1->score,player2->score);
+                    }
+                    else {
+                        player2->score++;
+                        printf("%s won! Score is : %d | %d\n",player2->name,player1->score,player2->score);
+                    }
                 }
                 else {
-                    printf("%s won!\n",player2->name);
-                    player2->score++;
+                    if (player1->weapon=='0') {
+                        player1->score++;
+                        printf("%s won! Score is : %d | %d\n",player1->name, player2->score,player1->score);
+                    }
+                    else {
+                        player2->score++;
+                        printf("%s won! Score is : %d | %d\n",player2->name, player2->score, player1->score);
+                    }
                 }
+                running=FALSE;
+                printf("Play again (Y/N)? ");
+                scanf("%c", &play_again);
+                clear_stdin();
+                play_again=upper(play_again);
+                if (play_again=='Y')
+                    runningMain=TRUE;
+                else 
+                    runningMain=FALSE;
             }
-            running=FALSE;
-            pauseTerm();
+            else if (total_turns==(rows*columns)) {
+                printBoard(board);
+                printf("Game is a draw!\n");
+                pauseTerm();
+                running=FALSE;
+                printf("Play again (Y/N)? ");
+                scanf("%c", &play_again);
+                clear_stdin();
+                play_again=upper(play_again);
+                if (play_again=='Y')
+                    runningMain=TRUE;
+                else 
+                    runningMain=FALSE;
+            }
         }
-        else if (total_turns==(rows*columns)) {
-            printBoard(board);
-            printf("Game is a draw!\n");
-            pauseTerm();
-            running=FALSE;
-        }
+        free(used_options);
     }
-    free(used_options);
 }
 bool checkforwin(char **board, int rows, int columns) {
     for (int row=0;row<rows;row++) {

@@ -1,3 +1,5 @@
+#ifndef __FUNCS__
+#define __FUNCS__
 #define TRUE 1
 #define FALSE 0
 #define PLAYER_NAME_SIZE 50
@@ -24,3 +26,4 @@ unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int 
 bool checkforwin(char **board, int rows, int columns);
 void pauseTerm(void);
 void printBoard(char **board);
+#endif

@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "functions.h"
-
 int main(int argc, char const *argv[])
 {
     bool running = TRUE;
