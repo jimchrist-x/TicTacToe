@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "functions.h"
+#include "colors.h"
 int main(int argc, char const *argv[])
 {
     bool running = TRUE;
@@ -21,6 +22,7 @@ int main(int argc, char const *argv[])
             board = malloc(rows * sizeof(unsigned char *));
             if (!board)
             {
+                fprintf(stderr, RED_BOLD);
                 fprintf(stderr, "Error allocating memory!\n");
                 exit(EXIT_FAILURE);
             }
@@ -29,6 +31,7 @@ int main(int argc, char const *argv[])
                 board[row] = malloc(columns * sizeof(unsigned char));
                 if (!board[row])
                 {
+                    fprintf(stderr, RED_BOLD);
                     fprintf(stderr, "Error allocating memory!\n");
                     exit(EXIT_FAILURE);
                 }
@@ -54,14 +57,17 @@ int main(int argc, char const *argv[])
                     {
                         break;
                     }
-                    printf("%s (%c) VS %s (%c) | %d : %d\n", player1.name, player1.weapon, player2.name, player2.weapon, player1.score, player2.score);
+                    printf("%s%s %s(%s%c%s) %sVS %s%s %s(%s%c%s) | %s%d : %s%d\n", GREEN_BOLD,player1.name, RESET_COLORS, PURPLE_BOLD,player1.weapon, RESET_COLORS, YELLOW_BOLD, GREEN_BOLD, player2.name, RESET_COLORS, PURPLE_BOLD, player2.weapon, RESET_COLORS, RED_BOLD, player1.score, RED_BOLD, player2.score);
                 }
                 fclose(recordFile);
+                printf(RESET_COLORS);
                 pauseTerm();
             }
             else
             {
+                printf(RED_BOLD);
                 printf("No records found!");
+                printf(RESET_COLORS);
                 pauseTerm();
             }
             break;
@@ -69,7 +75,9 @@ int main(int argc, char const *argv[])
             system(web);
             break;
         case 4:
+            printf(CYAN_BOLD);
             printf("See ya!\n");
+            printf(RESET_COLORS);
             running = FALSE;
             break;
         default:

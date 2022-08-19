@@ -4,15 +4,19 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "functions.h"
-
+#include "colors.h"
 bool initPlayers(PLAYER *player1, PLAYER *player2)
 {
     system(clear);
     do
     {
+        printf(PURPLE_BOLD);
         printf("Player 1 name: ");
+        printf(GREEN);
         fgets(player1->name, PLAYER_NAME_SIZE, stdin);
+        printf(PURPLE_BOLD);
         printf("Player 2 name: ");
+        printf(GREEN);
         fgets(player2->name, PLAYER_NAME_SIZE, stdin);
         if (!strcmp(player1->name, player2->name))
         {
@@ -21,9 +25,12 @@ bool initPlayers(PLAYER *player1, PLAYER *player2)
     } while (!strcmp(player1->name, player2->name));
     removeNewline(player1->name, PLAYER_NAME_SIZE);
     removeNewline(player2->name, PLAYER_NAME_SIZE);
+    printf(PURPLE_BOLD);
     printf("%s choose your weapon, X or 0:", player1->name);
+    printf(GREEN);
     scanf("%c", &player1->weapon);
     clear_stdin();
+    printf(RESET_COLORS);
     player1->weapon = upper(player1->weapon);
     if (player1->weapon == 'X')
     {
@@ -70,11 +77,16 @@ unsigned short int startMenu(void)
 {
     unsigned short int option;
     system(clear);
-    printf("  ___                 ___ \n");
-    printf(" (o o)               (o o)\n");
+    printf(BLUE_BACKGROUND);
+    printf(WHITE_BOLD);
+    printf("  ___                 ___  \n");
+    printf(" (o o)               (o o) \n");
     printf("(  V  ) Tic Tac Toe (  V  )\n");
     printf("--m-m-----------------m-m--\n");
+    printf(RESET_COLORS);
+    printf(YELLOW);
     printLine(LINE_SIZE);
+    printf(PURPLE_BOLD);
     printf("1.PLAY\n");
     printf("2.GAME RECORD\n");
     printf("3.HELP\n");
@@ -82,8 +94,10 @@ unsigned short int startMenu(void)
     do
     {
         printf("?");
+        printf(GREEN);
         scanf("%hu", &option);
         clear_stdin();
+        printf(RESET_COLORS);
     } while (option > USHRT_MAX || option < 0);
     return option;
 }
@@ -109,7 +123,8 @@ unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int 
         used_options = malloc(sizeof(int) * (rows * columns));
         if (!used_options)
         {
-            printf("Error allocating memory!\n");
+            fprintf(stderr, RED_BOLD);
+            fprintf(stderr, "Error allocating memory!\n");
             exit(EXIT_FAILURE);
         }
         board[0][0] = '1';
@@ -248,7 +263,6 @@ unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int 
             {
                 printBoard(board);
                 printf("Game is a draw!\n");
-                pauseTerm();
                 running = FALSE;
                 printf("Play again (Y/N)? ");
                 scanf("%c", &play_again);
@@ -306,8 +320,11 @@ void printBoard(char **board)
 }
 bool fileExists(char *filename)
 {
-    if (fopen(filename, "rb"))
+    FILE *file;
+    file=fopen(filename, "rb");
+    if (file)
     {
+        fclose(file);
         return TRUE;
     }
     else
