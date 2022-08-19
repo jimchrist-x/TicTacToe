@@ -56,6 +56,7 @@ int main(int argc, char const *argv[])
                     }
                     printf("%s (%c) VS %s (%c) | %d : %d\n", player1.name, player1.weapon, player2.name, player2.weapon, player1.score, player2.score);
                 }
+                fclose(recordFile);
                 pauseTerm();
             }
             else
@@ -65,6 +66,7 @@ int main(int argc, char const *argv[])
             }
             break;
         case 3:
+            system(web);
             break;
         case 4:
             printf("See ya!\n");

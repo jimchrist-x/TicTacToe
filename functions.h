@@ -7,8 +7,10 @@
 #define RECORD_FILENAME "records.bin"
 #ifdef _WIN32
 #define clear "cls"
+#define web "start https://www.wikihow.com/Play-Tic-Tac-Toe"
 #else
 #define clear "clear"
+#define web "xdg-open https://www.wikihow.com/Play-Tic-Tac-Toe"
 #endif
 struct player
 {
