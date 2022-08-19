@@ -3,7 +3,7 @@
 ### Installation
 - `git clone https://github.com/jimchrist-x/TicTacToe.git`
 - `cd TicTacToe`
-- `gcc functions.c main.c -o TicTacToe`
+- `make clean install`
 - `./TicTacToe` OR `TicTacToe.exe`
 ### Contribution
 - This repo is open to contribution
