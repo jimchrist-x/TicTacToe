@@ -250,7 +250,7 @@ unsigned short int gameloop(PLAYER *player1, PLAYER *player2, char **board, int 
                     }
                 }
                 running = FALSE;
-                printf("Play again (Y/N)? ");
+                printf("%sPlay again %s(%sY%s/%sN%s)? ", YELLOW_BOLD, RESET_COLORS, GREEN_BOLD_INTENSE, RESET_COLORS, RED_BOLD_INTENSE, RESET_COLORS);
                 scanf("%c", &play_again);
                 clear_stdin();
                 play_again = upper(play_again);
@@ -298,25 +298,26 @@ bool checkforwin(char **board, int rows, int columns)
 }
 void pauseTerm(void)
 {
-    printf("Terminal Paused... Press ENTER to continue...\n");
+    printf("%sTerminal Paused... %sPress ENTER to continue...%s\n", YELLOW_BOLD, GREEN_BOLD, RESET_COLORS);
     getchar();
 }
 void printBoard(char **board)
 {
     system(clear);
-    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⠀⠀⣾⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
-    printf("      %c  ⢸⡇⠀⠀⠀%c    ⣿⡇  %c       \n", board[0][0], board[0][1], board[0][2]);
-    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
-    printf("⠀⠀⢀⣀⣀⣀⣀⣀⣀⣸⣇⣀⣀⣀⣀⣀⣀⣀⣀⣿⣇⣀⣀⣀⣀⣀⣀⡀⠀⠀\n");
-    printf("⠀⠀⠙⠛⠛⠛⠛⠛⠛⢻⡟⠛⠛⠛⠛⠛⠛⠛⠛⣿⡟⠛⠛⠛⠛⠛⠛⠃⠀⠀\n");
-    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
-    printf("      %c  ⢸⡇   %c    ⣿⡇  %c      \n", board[1][0], board[1][1], board[1][2]);
-    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
-    printf("⠀⠀⢀⣀⣀⣀⣀⣀⣀⣸⣇⣀⣀⣀⣀⣀⣀⣀⣀⣿⣇⣀⣀⣀⣀⣀⣀⡀⠀⠀\n");
-    printf("⠀⠀⠈⠉⠉⠉⠉⠉⠉⢹⡏⠉⠉⠉⠉⠉⠉⠉⠉⣿⡏⠉⠉⠉⠉⠉⠉⠁⠀⠀\n");
-    printf("      %c  ⢸⡇   %c    ⣿⡇⠀ %c        \n", board[2][0], board[2][1], board[2][2]);
-    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
-    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠇⠀⠀⠀⠀⠀⠀⠀⠀⢿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀\n");
+    printf("%s⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡆⠀⠀⠀⠀⠀⠀⠀⠀⣾⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀   \n", BOARD_COLOR);
+    printf("      %s%c%s  %s⢸⡇⠀⠀⠀%s%c%s    %s⣿⡇  %s%c%s          \n", BOARD_COLOR_LETTERS, board[0][0], RESET_COLORS, BOARD_COLOR, BOARD_COLOR_LETTERS, board[0][1], RESET_COLORS, BOARD_COLOR, BOARD_COLOR_LETTERS, board[0][2], RESET_COLORS);
+    printf("%s⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀   \n", BOARD_COLOR);
+    printf("⠀⠀⢀⣀⣀⣀⣀⣀⣀⣸⣇⣀⣀⣀⣀⣀⣀⣀⣀⣿⣇⣀⣀⣀⣀⣀⣀⡀⠀⠀   \n");
+    printf("⠀⠀⠙⠛⠛⠛⠛⠛⠛⢻⡟⠛⠛⠛⠛⠛⠛⠛⠛⣿⡟⠛⠛⠛⠛⠛⠛⠃⠀⠀   \n");
+    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀   \n");
+    printf("      %s%c%s  %s⢸⡇   %s%c%s    %s⣿⡇  %s%c%s         \n", BOARD_COLOR_LETTERS, board[1][0], RESET_COLORS, BOARD_COLOR, BOARD_COLOR_LETTERS, board[1][1], RESET_COLORS, BOARD_COLOR, BOARD_COLOR_LETTERS, board[1][2], RESET_COLORS);
+    printf("%s⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀   \n", BOARD_COLOR);
+    printf("⠀⠀⢀⣀⣀⣀⣀⣀⣀⣸⣇⣀⣀⣀⣀⣀⣀⣀⣀⣿⣇⣀⣀⣀⣀⣀⣀⡀⠀⠀   \n");
+    printf("⠀⠀⠈⠉⠉⠉⠉⠉⠉⢹⡏⠉⠉⠉⠉⠉⠉⠉⠉⣿⡏⠉⠉⠉⠉⠉⠉⠁⠀⠀   \n");
+    printf("      %s%c%s  %s⢸⡇   %s%c%s    %s⣿⡇⠀ %s%c%s           \n", BOARD_COLOR_LETTERS, board[2][0], RESET_COLORS, BOARD_COLOR, BOARD_COLOR_LETTERS, board[2][1], RESET_COLORS, BOARD_COLOR, BOARD_COLOR_LETTERS, board[2][2], RESET_COLORS);
+    printf("⠀%s⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀   \n", BOARD_COLOR);
+    printf("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠇⠀⠀⠀⠀⠀⠀⠀⠀⢿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀   \n");
+    printf(RESET_COLORS);
 }
 bool fileExists(char *filename)
 {

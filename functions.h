@@ -5,6 +5,8 @@
 #define PLAYER_NAME_SIZE 50
 #define LINE_SIZE 30
 #define RECORD_FILENAME "records.bin"
+#define BOARD_COLOR RED_BOLD_INTENSE
+#define BOARD_COLOR_LETTERS GREEN_BOLD_INTENSE
 #ifdef _WIN32
 #define clear "cls"
 #define web "start https://www.wikihow.com/Play-Tic-Tac-Toe"

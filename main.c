@@ -58,6 +58,8 @@ int main(int argc, char const *argv[])
                         break;
                     }
                     printf("%s%s %s(%s%c%s) %sVS %s%s %s(%s%c%s) | %s%d : %s%d\n", GREEN_BOLD,player1.name, RESET_COLORS, PURPLE_BOLD,player1.weapon, RESET_COLORS, YELLOW_BOLD, GREEN_BOLD, player2.name, RESET_COLORS, PURPLE_BOLD, player2.weapon, RESET_COLORS, RED_BOLD, player1.score, RED_BOLD, player2.score);
+                    printf(YELLOW_BOLD_INTENSE);
+                    printLine(LINE_SIZE);
                 }
                 fclose(recordFile);
                 printf(RESET_COLORS);
@@ -66,7 +68,7 @@ int main(int argc, char const *argv[])
             else
             {
                 printf(RED_BOLD);
-                printf("No records found!");
+                printf("No records found!\n");
                 printf(RESET_COLORS);
                 pauseTerm();
             }
