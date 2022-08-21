@@ -645,7 +645,6 @@ unsigned short int botLogic(int *used_options, int option, int total_turns, char
         if (sos_choice!='X' && sos_choice!='0') {
                 sos_option=atoi(&sos_choice);
             }
-    printf("|%c|",sos_choice);
     for (short int elem=0;elem<total_turns;elem++) {
         if (right==used_options[elem]) {
             right=0;
