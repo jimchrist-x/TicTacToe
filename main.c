@@ -18,7 +18,6 @@ int main(int argc, char const *argv[])
         switch (startMenu())
         {
         case 1:
-            initPlayers(&player1, &player2);
             board = malloc(rows * sizeof(unsigned char *));
             if (!board)
             {
@@ -36,10 +35,21 @@ int main(int argc, char const *argv[])
                     exit(EXIT_FAILURE);
                 }
             }
-            gameloop(&player1, &player2, board, rows, columns);
-            recordFile = fopen(RECORD_FILENAME, "ab");
-            recordWrite(&recordFile, player1, player2);
-            fclose(recordFile);
+            switch (gameMenu()) {
+                case 1:
+                    initPlayers(&player1, &player2);
+                    gameloop(&player1, &player2, board, rows, columns);
+                    recordFile = fopen(RECORD_FILENAME, "ab");
+                    recordWrite(&recordFile, player1, player2);
+                    fclose(recordFile);
+                    break;
+                case 2:
+                    initPlayer(&player1, &player2);
+                    gameBotloop(&player1, &player2, board, rows, columns);
+                    break;
+                default:
+                    break;
+            }
             for (int row = 0; row < rows; row++)
             {
                 free(board[row]);

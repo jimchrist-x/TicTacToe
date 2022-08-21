@@ -34,4 +34,8 @@ void printBoard(char **board);
 bool fileExists(char *filename);
 void recordWrite(FILE **recordFile, PLAYER player1, PLAYER player2);
 void recordRead(FILE *recordFile, PLAYER *player1, PLAYER *player2);
+unsigned short int gameMenu(void);
+bool initPlayer(PLAYER *player1, PLAYER *Bot);
+unsigned short int gameBotloop(PLAYER *player1, PLAYER *Bot, char **board, int rows, int columns);
+unsigned short int botLogic(int *used_options, int option, int total_turns, char **board, int rows, int columns);
 #endif
